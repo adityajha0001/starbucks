@@ -2,16 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 
-const Cart=(props)=>{
+const Cart=(params)=>{
     return(
         <>
-       <Link legacyBehavior href = {props.href}>
+       <Link legacyBehavior href={params.fsq_id}>
             <div>
                 <div className="py-32 px-44">
-                    <Image src ={props.imgUrl}
+                    <Image src ={params.imgUrl}
                            width={260}
                            height={160}/>
-                    <h1 className="text-2xl font-bold">{props.name}</h1>
+                    <h1 className="text-2xl font-bold">{params.name}</h1>
                 </div>
             </div>
        </Link>

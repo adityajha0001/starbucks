@@ -6,12 +6,16 @@ import Banner from "../components/banner";
 import Cart from "../components/cart"
 
 import coffeeStoresData from "../data/005 coffee-stores.json";
+import { fetchCoffeeStores } from '../lib/coffee-stores';
 
 
 export async function getStaticProps (context){
+
+  const coffeeStores = await fetchCoffeeStores();
+
   return{
     props:{
-      coffeeStores : coffeeStoresData,
+      coffeeStores,
     },
   };
 }
@@ -36,10 +40,11 @@ export default function Home(props) {
       {props.coffeeStores.map(coffeeStore =>{
         return (
         <Cart
-        key = {coffeeStore.id}
+        key = {coffeeStore.fsq_id}
           name = {coffeeStore.name}
-          imgUrl = {coffeeStore.imgUrl}
-          href = {`/coffe-store/${coffeeStore.id}`}
+          imgUrl = {coffeeStore.imgUrl||"/static/pandas.jpg"}
+          href = {`/coffe-store/${coffeeStore.fsq_id}`}
+          
               
         />
         )

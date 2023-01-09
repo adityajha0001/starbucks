@@ -3,23 +3,31 @@ import Link from "next/link";
 import Head from "next/head";
 
 import CoffeeStoreData from "../../data/005 coffee-stores.json";
-export function getStaticProps(staticProps){
+import { fetchCoffeeStores } from "../../lib/coffee-stores";
+
+
+
+export async function getStaticProps(staticProps){
     const params = staticProps.params;
     console.log("params",params)
+    const coffeeStores = await fetchCoffeeStores();
     return{
         props: {
              CoffeeStore: CoffeeStoreData.find(CoffeeStore => {
-                return CoffeeStore.id.toString()===params.id; 
+                return CoffeeStores.fsq_id.toString()===params.id; 
              })
             }
     }
 }
 
-export function getStaticPaths(){
+export async function getStaticPaths(){
+
+    const coffeeStores = await fetchCoffeeStores();
+    
     const paths = CoffeeStoreData.map((coffeeStore) => {
         return {
-            params : {
-                id : CoffeeStore.id.toString(),
+            params : { 
+                id : CoffeeStores.fsq_id.toString(),
             },
         };
     });
