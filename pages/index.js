@@ -5,9 +5,18 @@ import styles from '../styles/Home.module.css';
 import Banner from "../components/banner";
 import Cart from "../components/cart"
 
-import coffeeStores from "../data/005 coffee-stores.json";
+import coffeeStoresData from "../data/005 coffee-stores.json";
 
-export default function Home() {
+
+export async function getStaticProps (context){
+  return{
+    props:{
+      coffeeStores : coffeeStoresData,
+    },
+  };
+}
+ 
+export default function Home(props) {
   return (
     <div>
       <Head>
@@ -20,10 +29,14 @@ export default function Home() {
 
       <main>
         <Banner/>
-        <div className="flex py-16">
-      {coffeeStores.map(coffeeStore =>{
+        {props.coffeeStores.length>0 &&(
+        <>
+        <h1 className="text-5xl font-bold px-44">COFFEE SHOP</h1>
+        <div className="flex py-8">
+      {props.coffeeStores.map(coffeeStore =>{
         return (
         <Cart
+        key = {coffeeStore.id}
           name = {coffeeStore.name}
           imgUrl = {coffeeStore.imgUrl}
           href = {`/coffe-store/${coffeeStore.id}`}
@@ -32,6 +45,7 @@ export default function Home() {
         )
       })}
       </div>
+      </>)}
       </main>
 
      
